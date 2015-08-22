@@ -1,0 +1,28 @@
+{
+  "name": "reviewjs-prh",
+  "author": "vvakame",
+  "private": false,
+  "version": "0.0.1",
+  "description": "prh for review.js validator",
+  "main": "./index",
+  "scripts": {
+    "build": "grunt default",
+    "test": "grunt test"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/vvakame/reviewjs-prh",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vvakame/reviewjs-prh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vvakame/reviewjs-prh/issues"
+  },
+  "dependencies": {
+    "prh": "^0.4.0",
+    "review.js": "^0.9.0"
+  },
+  "devDependencies": {
+    "typescript": "^1.5.3"
+  }
+}

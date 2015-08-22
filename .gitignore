@@ -1,0 +1,18 @@
+.settings/
+
+# for npm
+node_modules/
+
+# for grunt
+.tscache/
+typings/
+lib/**/*.js
+lib/**/*.js.map
+lib/**/*.d.ts
+!lib/typings/**/*.d.ts
+test/**/*.js
+test/**/*.js.map
+test/**/*.d.ts
+testEspowered/
+
+example/*.html
