@@ -58,6 +58,14 @@ export class TextValidator implements ReVIEW.Validator {
                 if (ignoreInlineStack.length !== 0 || ignoreBlockStack.length !== 0) {
                     return;
                 }
+                // 現在がParagraphの中なら親(Paragraph)の兄を取るとコメントの可能性がある
+                let prev = node.parentNode.prev;
+                if (prev instanceof ReVIEW.SingleLineCommentSyntaxTree) {
+                    if (prev.text.indexOf("prh:disable") !== -1) {
+                        return;
+                    }
+                }
+
                 let text = chunk.input.substring(node.location.start.offset, node.location.end.offset);
                 let changeSets = this.config.makeChangeSet(chunk.name, text);
                 changeSets.forEach(changeSet => {

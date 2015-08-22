@@ -7,5 +7,6 @@
 console.log("test");
 //}
 
+#@# prh:disable
 webmasterツール。
 ↑上記はwebmasterで1語なのでlintからは無視されたい。
