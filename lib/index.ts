@@ -6,6 +6,16 @@ import ReVIEWWalker = require("review.js/lib/parser/walker");
 export class TextValidator implements ReVIEW.Validator {
     config: prh.Config;
 
+    ignoreInlineNames = [
+        "list",
+        "img",
+        "fn"
+    ];
+    ignoreBlockNames = [
+        "list",
+        "image"
+    ];
+
     constructor(yamlPath: string) {
         this.config = prh.fromYAMLFilePath(yamlPath);
     }
@@ -18,10 +28,36 @@ export class TextValidator implements ReVIEW.Validator {
     }
 
     checkChunk(chunk: ReVIEW.ContentChunk) {
+        let ignoreInlineStack: string[] = [];
+        let ignoreBlockStack: string[] = [];
         ReVIEWWalker.visit(chunk.tree.ast, {
             visitDefaultPre: (node: ReVIEW.SyntaxTree) => {
             },
+            visitInlineElementPre: (node: ReVIEW.InlineElementSyntaxTree, parent: ReVIEW.SyntaxTree) => {
+                if (this.ignoreInlineNames.indexOf(node.symbol) !== -1) {
+                    ignoreInlineStack.push(node.symbol);
+                }
+            },
+            visitInlineElementPost: (node: ReVIEW.InlineElementSyntaxTree, parent: ReVIEW.SyntaxTree) => {
+                if (this.ignoreInlineNames.indexOf(node.symbol) !== -1) {
+                    ignoreInlineStack.pop();
+                }
+            },
+            visitBlockElementPre: (node: ReVIEW.BlockElementSyntaxTree, parent: ReVIEW.SyntaxTree) => {
+                if (this.ignoreBlockNames.indexOf(node.symbol) !== -1) {
+                    ignoreBlockStack.push(node.symbol);
+                }
+            },
+            visitBlockElementPost: (node: ReVIEW.BlockElementSyntaxTree, parent: ReVIEW.SyntaxTree) => {
+                if (this.ignoreBlockNames.indexOf(node.symbol) !== -1) {
+                    ignoreBlockStack.pop();
+                }
+            },
+
             visitTextPre: (node: ReVIEW.TextNodeSyntaxTree) => {
+                if (ignoreInlineStack.length !== 0 || ignoreBlockStack.length !== 0) {
+                    return;
+                }
                 let text = chunk.input.substring(node.location.start.offset, node.location.end.offset);
                 let changeSets = this.config.makeChangeSet(chunk.name, text);
                 changeSets.forEach(changeSet => {
