@@ -79,7 +79,14 @@ export class TextValidator implements ReVIEW.Validator {
                     if (result === changeSet.matches[0]) {
                         return;
                     }
-                    chunk.process.warn(result, getNodeLocation(node, changeSet.index, changeSet.matches[0].length));
+
+                    let message: string;
+                    if (changeSet.rule.raw.prh) {
+                        message = `'${result}' ${changeSet.rule.raw.prh}`;
+                    } else {
+                        message = result;
+                    }
+                    chunk.process.warn(message, getNodeLocation(node, changeSet.index, changeSet.matches[0].length));
                 });
             }
         });
