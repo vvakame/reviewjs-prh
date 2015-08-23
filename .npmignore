@@ -1,0 +1,22 @@
+.git/
+
+# for npm
+node_modules/
+
+# for grunt
+typings/
+.tscache/
+
+# codes
+test/
+example/
+benchmark/
+
+# misc
+.gitignore
+.editorconfig
+setup.sh
+dtsm.json
+Gruntfile.js
+
+npm-debug.log
