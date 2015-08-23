@@ -1,7 +1,13 @@
+/// <reference path="../node_modules/typescript/bin/lib.es6.d.ts" />
+/// <reference path="../node_modules/review.js/dist/review.js.d.ts" />
+/// <reference path="../node_modules/prh/prh.d.ts" />
+
 import * as ReVIEW from "review.js";
 import * as prh from "prh";
 
+/* tslint:disable:no-require-imports */
 import ReVIEWWalker = require("review.js/lib/parser/walker");
+/* tslint:enable:no-require-imports */
 
 export class TextValidator implements ReVIEW.Validator {
     config: prh.Config;
@@ -97,12 +103,12 @@ export class TextValidator implements ReVIEW.Validator {
                     start: {
                         line: node.location.start.line,
                         column: node.location.start.column + targetIndex,
-                        offset: node.location.start.offset + targetIndex,
+                        offset: node.location.start.offset + targetIndex
                     },
                     end: {
                         line: node.location.start.line,
                         column: node.location.start.column + targetIndex + targetLength,
-                        offset: node.location.start.offset + targetIndex + targetLength,
+                        offset: node.location.start.offset + targetIndex + targetLength
                     }
                 }
             };
