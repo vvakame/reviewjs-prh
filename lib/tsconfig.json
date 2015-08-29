@@ -17,6 +17,7 @@
     "filesGlob": [
         "./**/*.ts",
         "./**/*.tsx",
+        "!./**/*.d.ts",
         "../node_modules/typescript/bin/lib.es6.d.ts",
         "../node_modules/review.js/dist/review.js.d.ts",
         "../node_modules/prh/prh.d.ts"
