@@ -64,14 +64,24 @@ export class TextValidator implements ReVIEW.Validator {
                 if (ignoreInlineStack.length !== 0 || ignoreBlockStack.length !== 0) {
                     return;
                 }
-                if (node.parentNode && node.parentNode.prev) {
-                    // 現在がParagraphの中なら親(Paragraph)の兄を取るとコメントの可能性がある
-                    let prev = node.parentNode.prev;
+
+                // 現在がParagraphの中なら親(Paragraph)の兄を取るとコメントの可能性がある
+                let suppress = false;
+                ReVIEWWalker.walk(node.parentNode, node => {
+                    if (!node.prev) {
+                        return node.parentNode;
+                    }
+                    let prev = node.prev;
                     if (prev instanceof ReVIEW.SingleLineCommentSyntaxTree) {
                         if (prev.text.indexOf("prh:disable") !== -1) {
-                            return;
+                            suppress = true;
+                            return null;
                         }
                     }
+                    return node.parentNode;
+                });
+                if (suppress) {
+                    return;
                 }
 
                 let text = chunk.input.substring(node.location.start.offset, node.location.end.offset);

@@ -11,5 +11,6 @@ console.log("test");
 #@# prh:disable
 webmasterツール。
 ↑上記はwebmasterで1語なのでlintからは無視されたい。
+@<kw>{ラブライブ,LOVELIVE}も意図的なので無視されたい。
 
 ラブライブ！
