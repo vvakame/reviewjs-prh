@@ -14,13 +14,13 @@
   },
   "dependencies": {
     "node/node.d.ts": {
-      "ref": "977da240f263e88215a27cb44f2e31524ca07135"
+      "ref": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     },
     "mocha/mocha.d.ts": {
-      "ref": "977da240f263e88215a27cb44f2e31524ca07135"
+      "ref": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     },
     "assert/assert.d.ts": {
-      "ref": "977da240f263e88215a27cb44f2e31524ca07135"
+      "ref": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     }
   }
 }
