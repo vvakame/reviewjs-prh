@@ -1,7 +1,3 @@
-/// <reference path="../node_modules/typescript/bin/lib.es6.d.ts" />
-/// <reference path="../node_modules/review.js/dist/review.js.d.ts" />
-/// <reference path="../node_modules/prh/prh.d.ts" />
-
 import * as ReVIEW from "review.js";
 import * as prh from "prh";
 
