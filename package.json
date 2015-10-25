@@ -2,7 +2,7 @@
   "name": "reviewjs-prh",
   "author": "vvakame",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "prh for review.js validator",
   "main": "./index",
   "scripts": {
