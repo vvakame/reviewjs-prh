@@ -6,7 +6,7 @@ import ReVIEWWalker = require("review.js/lib/parser/walker");
 /* tslint:enable:no-require-imports */
 
 export class TextValidator implements ReVIEW.Validator {
-    config: prh.Config;
+    engine: prh.Engine;
 
     ignoreInlineNames = [
         "list",
@@ -19,7 +19,7 @@ export class TextValidator implements ReVIEW.Validator {
     ];
 
     constructor(yamlPath: string) {
-        this.config = prh.fromYAMLFilePath(yamlPath);
+        this.engine = prh.fromYAMLFilePath(yamlPath);
     }
 
     start(book: ReVIEW.Book) {
@@ -81,8 +81,8 @@ export class TextValidator implements ReVIEW.Validator {
                 }
 
                 let text = chunk.input.substring(node.location.start.offset, node.location.end.offset);
-                let changeSets = this.config.makeChangeSet(chunk.name, text);
-                changeSets.forEach(changeSet => {
+                let changeSets = this.engine.makeChangeSet(chunk.name, text);
+                changeSets.diffs.forEach(changeSet => {
                     let result = changeSet.expected.replace(/\$([0-9]{1,2})/g, (match: string, g1: string) => {
                         let index = parseInt(g1);
                         if (index === 0 || (changeSet.matches.length - 1) < index) {

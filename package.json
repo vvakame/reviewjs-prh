@@ -19,7 +19,7 @@
     "url": "https://github.com/vvakame/reviewjs-prh/issues"
   },
   "dependencies": {
-    "prh": "^0.6.0",
+    "prh": "^0.8.0",
     "review.js": "^0.9.4"
   },
   "devDependencies": {
@@ -32,9 +32,9 @@
     "grunt-tslint": "2.5.0",
     "load-grunt-tasks": "3.3.0",
     "mocha": "2.3.3",
-    "power-assert": "1.0.1",
-    "time-grunt": "1.2.1",
-    "tslint": "2.5.0",
+    "power-assert": "1.1.0",
+    "time-grunt": "1.2.2",
+    "tslint": "2.5.1",
     "typescript": "1.6.2"
   }
 }
