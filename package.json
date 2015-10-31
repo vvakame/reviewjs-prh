@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "prh": "^0.8.0",
-    "review.js": "^0.9.4"
+    "review.js": "^0.9.6"
   },
   "devDependencies": {
     "grunt": "0.4.5",
