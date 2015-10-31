@@ -2,7 +2,7 @@
   "name": "reviewjs-prh",
   "author": "vvakame",
   "private": false,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "prh for review.js validator",
   "main": "./index",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "prh": "^0.8.0",
-    "review.js": "^0.9.6"
+    "review.js": "^0.10.0"
   },
   "devDependencies": {
     "grunt": "0.4.5",
