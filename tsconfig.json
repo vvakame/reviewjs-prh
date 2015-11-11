@@ -25,10 +25,12 @@
     "files": [
         "./lib/index.ts",
         "./test/indexSpec.ts",
-        "./typings/assert/assert.d.ts",
         "./typings/bundle.d.ts",
+        "./typings/empower/empower.d.ts",
         "./typings/mocha/mocha.d.ts",
         "./typings/node/node.d.ts",
+        "./typings/power-assert-formatter/power-assert-formatter.d.ts",
+        "./typings/power-assert/power-assert.d.ts",
         "./node_modules/typescript/lib/lib.es6.d.ts"
     ]
 }
