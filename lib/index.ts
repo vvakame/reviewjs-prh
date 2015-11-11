@@ -11,10 +11,14 @@ export class TextValidator implements ReVIEW.Validator {
     ignoreInlineNames = [
         "list",
         "img",
-        "fn"
+        "fn",
+        "code"
     ];
     ignoreBlockNames = [
         "list",
+        "listnum",
+        "emlist",
+        "emlistnum",
         "image"
     ];
 
