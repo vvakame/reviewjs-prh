@@ -14,3 +14,6 @@ webmasterツール。
 @<kw>{ラブライブ,LOVELIVE}も意図的なので無視されたい。
 
 ラブライブ！
+
+#@# prh:disable
+//footnote[test][ラブライブ！]

@@ -3,6 +3,7 @@ import * as prh from "prh";
 
 /* tslint:disable:no-require-imports */
 import ReVIEWWalker = require("review.js/lib/parser/walker");
+import ReVIEWUtils = require("review.js/lib/utils/utils");
 /* tslint:enable:no-require-imports */
 
 export class TextValidator implements ReVIEW.Validator {
@@ -66,7 +67,6 @@ export class TextValidator implements ReVIEW.Validator {
                 }
 
                 // 現在がParagraphの中なら親(Paragraph)の兄を取るとコメントの可能性がある
-                // 現在のがfootnoteのargの中なら親の親の兄を取るとコメントの可能性がある
                 let suppress = false;
                 ReVIEWWalker.walk(node.parentNode, node => {
                     if (!node.prev) {
@@ -74,10 +74,6 @@ export class TextValidator implements ReVIEW.Validator {
                     }
 
                     let prev = node.prev;
-                    if (prev instanceof ReVIEW.BlockElementSyntaxTree) {
-                        return prev;
-                    }
-
                     if (prev instanceof ReVIEW.SingleLineCommentSyntaxTree) {
                         if (prev.text.indexOf("prh:disable") !== -1) {
                             suppress = true;
@@ -89,6 +85,27 @@ export class TextValidator implements ReVIEW.Validator {
                 if (suppress) {
                     return;
                 }
+
+                // 現在のがfootnoteのargの中ならfootnoteの兄を取るとコメントの可能性がある
+                {
+                    let footnote = ReVIEWUtils.findUp(node, node => {
+                        if (node instanceof ReVIEW.BlockElementSyntaxTree) {
+                            let block = node.toBlockElement();
+                            return block.symbol === "footnote";
+                        }
+
+                        return false;
+                    });
+                    if (footnote) {
+                        let prev = node.prev;
+                        if (prev instanceof ReVIEW.SingleLineCommentSyntaxTree) {
+                            if (prev.text.indexOf("prh:disable") !== -1) {
+                                return;
+                            }
+                        }
+                    }
+                }
+
 
                 let text = chunk.input.substring(node.location.start.offset, node.location.end.offset);
                 let changeSets = this.engine.makeChangeSet(chunk.name, text);
