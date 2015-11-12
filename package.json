@@ -5,6 +5,10 @@
   "version": "0.1.7",
   "description": "prh for review.js validator",
   "main": "./index",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
   "scripts": {
     "build": "grunt default",
     "test": "grunt test"
@@ -13,7 +17,7 @@
   "homepage": "https://github.com/vvakame/reviewjs-prh",
   "repository": {
     "type": "git",
-    "url": "git@github.com:vvakame/reviewjs-prh.git"
+    "url": "git+ssh://git@github.com/vvakame/reviewjs-prh.git"
   },
   "bugs": {
     "url": "https://github.com/vvakame/reviewjs-prh/issues"
