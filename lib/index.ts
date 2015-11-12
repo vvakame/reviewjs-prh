@@ -66,12 +66,18 @@ export class TextValidator implements ReVIEW.Validator {
                 }
 
                 // 現在がParagraphの中なら親(Paragraph)の兄を取るとコメントの可能性がある
+                // 現在のがfootnoteのargの中なら親の親の兄を取るとコメントの可能性がある
                 let suppress = false;
                 ReVIEWWalker.walk(node.parentNode, node => {
                     if (!node.prev) {
                         return node.parentNode;
                     }
+
                     let prev = node.prev;
+                    if (prev instanceof ReVIEW.BlockElementSyntaxTree) {
+                        return prev;
+                    }
+
                     if (prev instanceof ReVIEW.SingleLineCommentSyntaxTree) {
                         if (prev.text.indexOf("prh:disable") !== -1) {
                             suppress = true;
