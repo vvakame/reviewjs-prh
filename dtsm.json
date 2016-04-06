@@ -14,13 +14,13 @@
   },
   "dependencies": {
     "node/node.d.ts": {
-      "ref": "e3616e155a3ed397ec7e779c3d8708ff0d96a0a3"
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
     },
     "mocha/mocha.d.ts": {
-      "ref": "e3616e155a3ed397ec7e779c3d8708ff0d96a0a3"
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
     },
     "power-assert/power-assert.d.ts": {
-      "ref": "e3616e155a3ed397ec7e779c3d8708ff0d96a0a3"
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
     }
   }
 }
