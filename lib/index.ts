@@ -13,14 +13,15 @@ export class TextValidator implements ReVIEW.Validator {
         "list",
         "img",
         "fn",
-        "code"
+        "code",
     ];
     ignoreBlockNames = [
         "list",
         "listnum",
         "emlist",
         "emlistnum",
-        "image"
+        "image",
+        "cmd",
     ];
 
     constructor(yamlPath: string) {
