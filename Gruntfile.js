@@ -1,6 +1,4 @@
 module.exports = function (grunt) {
-	require("time-grunt")(grunt);
-
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		// Java用プロジェクト構成向け設定
@@ -18,17 +16,9 @@ module.exports = function (grunt) {
 			}
 		},
 
-		ts: {
-			default: {
-				tsconfig: {
-					tsconfig: "./tsconfig.json",
-					updateFiles:false
-				}
-			}
-		},
-		tsconfig: {
-				main: {
-				}
+		exec: {
+			tsc: "tsc -p ./",
+			tsfmt: "tsfmt -r"
 		},
 		tslint: {
 			options: {
@@ -40,27 +30,6 @@ module.exports = function (grunt) {
 					'<%= opt.client.tsTest %>/**/*.ts',
 					'!<%= opt.client.tsMain %>/**/*.d.ts'
 				]
-			}
-		},
-		dtsm: {
-			client: {
-				options: {
-					// optional: specify config file
-					confog: './dtsm.json'
-				}
-			}
-		},
-		dts_bundle: {
-			build: {
-				options: {
-					name: "reviewjs-prh",
-					main: "lib/index.d.ts",
-					baseDir: "",
-					out: "./reviewjs-prh.d.ts",
-					prefix: '',
-					exclude: function () {return false;},
-					verbose: false
-				}
 			}
 		},
 		clean: {
@@ -78,12 +47,6 @@ module.exports = function (grunt) {
 					'<%= opt.client.jsTestOut %>/suite/**/*.d.ts',
 					// peg.js
 					'<%= opt.client.peg %>/grammar.js'
-				]
-			},
-			dtsm: {
-				src: [
-					// dtsm installed
-					"typings/"
 				]
 			}
 		},
@@ -111,12 +74,8 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask(
-		'setup',
-		['clean', 'dtsm']);
-
-	grunt.registerTask(
 		'default',
-		['clean:clientScript', 'tsconfig', 'ts', 'tslint']);
+		['clean:clientScript', 'exec:tsfmt', 'exec:tsc', 'tslint']);
 
 	grunt.registerTask(
 		'test',

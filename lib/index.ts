@@ -29,34 +29,34 @@ export class TextValidator implements ReVIEW.Validator {
     }
 
     start(book: ReVIEW.Book) {
-        book.predef.forEach(chunk=> this.checkChunk(chunk));
-        book.contents.forEach(chunk=> this.checkChunk(chunk));
-        book.appendix.forEach(chunk=> this.checkChunk(chunk));
-        book.postdef.forEach(chunk=> this.checkChunk(chunk));
+        book.predef.forEach(chunk => this.checkChunk(chunk));
+        book.contents.forEach(chunk => this.checkChunk(chunk));
+        book.appendix.forEach(chunk => this.checkChunk(chunk));
+        book.postdef.forEach(chunk => this.checkChunk(chunk));
     }
 
     checkChunk(chunk: ReVIEW.ContentChunk) {
         let ignoreInlineStack: string[] = [];
         let ignoreBlockStack: string[] = [];
         ReVIEWWalker.visit(chunk.tree.ast, {
-            visitDefaultPre: (node: ReVIEW.SyntaxTree) => {
+            visitDefaultPre: (_node: ReVIEW.SyntaxTree) => {
             },
-            visitInlineElementPre: (node: ReVIEW.InlineElementSyntaxTree, parent: ReVIEW.SyntaxTree) => {
+            visitInlineElementPre: (node: ReVIEW.InlineElementSyntaxTree, _parent: ReVIEW.SyntaxTree) => {
                 if (this.ignoreInlineNames.indexOf(node.symbol) !== -1) {
                     ignoreInlineStack.push(node.symbol);
                 }
             },
-            visitInlineElementPost: (node: ReVIEW.InlineElementSyntaxTree, parent: ReVIEW.SyntaxTree) => {
+            visitInlineElementPost: (node: ReVIEW.InlineElementSyntaxTree, _parent: ReVIEW.SyntaxTree) => {
                 if (this.ignoreInlineNames.indexOf(node.symbol) !== -1) {
                     ignoreInlineStack.pop();
                 }
             },
-            visitBlockElementPre: (node: ReVIEW.BlockElementSyntaxTree, parent: ReVIEW.SyntaxTree) => {
+            visitBlockElementPre: (node: ReVIEW.BlockElementSyntaxTree, _parent: ReVIEW.SyntaxTree) => {
                 if (this.ignoreBlockNames.indexOf(node.symbol) !== -1) {
                     ignoreBlockStack.push(node.symbol);
                 }
             },
-            visitBlockElementPost: (node: ReVIEW.BlockElementSyntaxTree, parent: ReVIEW.SyntaxTree) => {
+            visitBlockElementPost: (node: ReVIEW.BlockElementSyntaxTree, _parent: ReVIEW.SyntaxTree) => {
                 if (this.ignoreBlockNames.indexOf(node.symbol) !== -1) {
                     ignoreBlockStack.pop();
                 }
@@ -108,11 +108,11 @@ export class TextValidator implements ReVIEW.Validator {
                 }
 
 
-                let text = chunk.input.substring(node.location.start.offset, node.location.end.offset);
+                let text = chunk.input.substring(node.location.start.offset, node.location.end!.offset);
                 let changeSets = this.engine.makeChangeSet(chunk.name, text);
                 changeSets.diffs.forEach(changeSet => {
                     let result = changeSet.expected.replace(/\$([0-9]{1,2})/g, (match: string, g1: string) => {
-                        let index = parseInt(g1);
+                        let index = parseInt(g1, 10);
                         if (index === 0 || (changeSet.matches.length - 1) < index) {
                             return match;
                         }
@@ -123,14 +123,14 @@ export class TextValidator implements ReVIEW.Validator {
                     }
 
                     let message: string;
-                    if (changeSet.rule.raw.prh) {
-                        message = `'${result}' ${changeSet.rule.raw.prh}`;
+                    if (changeSet.rule!.raw.prh) {
+                        message = `'${result}' ${changeSet.rule!.raw.prh}`;
                     } else {
                         message = result;
                     }
                     chunk.process.warn(message, getNodeLocation(node, changeSet.index, changeSet.matches[0].length));
                 });
-            }
+            },
         });
 
         function getNodeLocation(node: ReVIEW.SyntaxTree, targetIndex: number, targetLength: number): ReVIEW.NodeLocation {
@@ -139,14 +139,14 @@ export class TextValidator implements ReVIEW.Validator {
                     start: {
                         line: node.location.start.line,
                         column: node.location.start.column + targetIndex,
-                        offset: node.location.start.offset + targetIndex
+                        offset: node.location.start.offset + targetIndex,
                     },
                     end: {
                         line: node.location.start.line,
                         column: node.location.start.column + targetIndex + targetLength,
-                        offset: node.location.start.offset + targetIndex + targetLength
-                    }
-                }
+                        offset: node.location.start.offset + targetIndex + targetLength,
+                    },
+                },
             };
         }
     }
