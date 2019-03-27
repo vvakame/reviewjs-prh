@@ -17,8 +17,8 @@ module.exports = function (grunt) {
 		},
 
 		exec: {
-			tsc: "$(npm bin)/tsc -p ./",
-			tsfmt: "$(npm bin)/tsfmt -r"
+			tsc: "tsc -p ./",
+			tsfmt: "tsfmt -r"
 		},
 		tslint: {
 			options: {
