@@ -76,7 +76,7 @@ export class TextValidator implements ReVIEW.Validator {
 
                     let prev = node.prev;
                     if (prev instanceof ReVIEW.SingleLineCommentSyntaxTree) {
-                        if (prev.text.indexOf("prh:disable") !== -1) {
+                        if (prev.toSingleLineCommentNode().text.indexOf("prh:disable") !== -1) {
                             suppress = true;
                             return null;
                         }
