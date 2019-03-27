@@ -1,5 +1,5 @@
-import * as ReVIEW from "review.js";
-import * as prh from "prh";
+import ReVIEW from "review.js";
+import prh from "prh";
 
 /* tslint:disable:no-require-imports */
 import ReVIEWWalker = require("review.js/lib/parser/walker");
@@ -107,11 +107,10 @@ export class TextValidator implements ReVIEW.Validator {
                     }
                 }
 
-
                 let text = chunk.input.substring(node.location.start.offset, node.location.end!.offset);
                 let changeSets = this.engine.makeChangeSet(chunk.name, text);
                 changeSets.diffs.forEach(changeSet => {
-                    let result = changeSet.expected.replace(/\$([0-9]{1,2})/g, (match: string, g1: string) => {
+                    let result = changeSet.expected!.replace(/\$([0-9]{1,2})/g, (match: string, g1: string) => {
                         let index = parseInt(g1, 10);
                         if (index === 0 || (changeSet.matches.length - 1) < index) {
                             return match;
