@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "prh": "^1.0.3",
-    "review.js": "^0.12.1"
+    "review.js": "^0.14.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.32",
