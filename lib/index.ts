@@ -1,5 +1,5 @@
-import * as ReVIEW from "review.js";
-import * as prh from "prh";
+import ReVIEW from "review.js";
+import prh from "prh";
 
 /* tslint:disable:no-require-imports */
 import ReVIEWWalker = require("review.js/lib/parser/walker");
